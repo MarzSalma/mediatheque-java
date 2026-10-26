@@ -2,7 +2,7 @@ package src;
 
 import java.util .*;
 
- public class Catalogue <T extends Document > {
+ public class Catalogue <T extends Document >implements Iterable<T> {
  private final List <T> elements = new ArrayList < >();
 
  public void ajouter (T element ) { elements .add( element ); }
@@ -11,8 +11,9 @@ public Optional <T> rechercherParTitre ( String titre ) {
 return elements.stream().filter (d -> d. getTitre().equalsIgnoreCase( titre )).findFirst ();
  }
 
- public void afficherTout () {
- elements.forEach (d -> System.out.println (d.descriptionCourte ()));
+ public Iterator<T> iterator () {
+ // return elements.iterator ();
+  return Collections.unmodifiableList ( elements ).iterator ();
  }
 
 public static <T extends Comparable <T>> T max(List <T> liste ) { // bonus
